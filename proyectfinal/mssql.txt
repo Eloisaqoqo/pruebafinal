@@ -1,0 +1,454 @@
+
+CREATE DATABASE Hospital
+
+GO
+
+
+
+
+USE Hospital
+GO
+CREATE TABLE Dept (Dept_No INT NOT NULL, DNombre VARCHAR(50) NULL, Loc VARCHAR(50) NULL, CONSTRAINT PK_Dept PRIMARY KEY(Dept_No))
+GO
+--Insertar datos en la table Dept
+INSERT INTO Dept(Dept_No,DNombre,Loc) VALUES(10,'CONTABILIDAD','POLANCO') 
+INSERT INTO Dept(Dept_No,DNombre,Loc) VALUES(20,'INVESTIGACIÓN','INSURGENTES') 
+INSERT INTO Dept(Dept_No,DNombre,Loc) VALUES(30,'VENTAS','ROMA NORTE') 
+INSERT INTO Dept(Dept_No,DNombre,Loc) VALUES(40,'PRODUCCIÓN','CONDESA')
+GO
+--Muestra los datos de insertados en la tabla dept
+SELECT * FROM Dept
+GO
+CREATE TABLE Emp
+(
+Emp_No INT NOT NULL,
+Apellido VARCHAR(50) NULL,
+Oficio VARCHAR(50) NULL,
+Dir INT NULL,
+Fecha_Alt SMALLDATETIME NULL,
+Salario NUMERIC(9,2) NULL,
+Comision NUMERIC(9,2) NULL,
+Dept_No INT NULL
+CONSTRAINT PK_Emp PRIMARY KEY(Emp_No),
+CONSTRAINT FK_Emp_Dept FOREIGN KEY (Dept_No) REFERENCES Dept(Dept_No)
+)
+GO
+--Insertar datos en la tabla Emp
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES
+(7369,'SANCHEZ','EMPLEADO',7902,'17/12/2004',10400,0,20)
+
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES
+(7499,'ARROYO','VENDEDOR',7698,'22/02/2010',208000,39000,30)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7521,'SALA','VENDEDOR',689,'22/02/2011',162500,65000,30)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7566,'JIMENEZ','DIRECTOR',7839,'02/04/2011',386750,0,20)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7654,'MARTIN','VENDEDOR',7698,'28/09/2015',182000,182000,30)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7698,'NEGRO','DIRECTOR',7839,'01/05/2016',370500,0,30)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7782,'CEREZO','DIRECTOR',7839,'09/06/2015',318500,0,10)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7788,'NINO','ANALISTA',7566,'30/03/2013',390000,0,20)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7839,'REY','PRESIDENTE',0,'17/11/2000',650000,0,10)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7844,'TOVAR','VENDEDOR',7698,'08/09/2004',195000,0,30)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7876,'ALONSO','EMPLEADO',7788,'03/05/2010',143000,0,20)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7900,'JIMENO','EMPLEADO',7698,'03/12/2012',123500,0,30)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7902,'FERNANDEZ','ANALISTA',7566,'03/12/2012',390000,0,20)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7934,'MUÑOZ','EMPLEADO',7782,'23/06/2013',169000,0,10)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7119,'SERRA','DIRECTOR',7839,'19/11/2014',225000,39000,20)
+INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+VALUES(7322,'GARCIA','EMPLEADO',7119,'12/10/2016',129000,0,20)
+
+GO
+--Muestra los datos de insertados en la tabla Emp
+SELECT * FROM Emp
+
+
+GO
+CREATE TABLE Hospital
+(
+Hospital_Cod INT NOT NULL,
+Nombre VARCHAR(50) NULL,
+Direccion VARCHAR(50) NULL,
+Telefono VARCHAR(50) NULL,
+Num_Cama INT NULL,
+CONSTRAINT PK_Hospital PRIMARY KEY(Hospital_Cod)
+)
+GO
+--Insertar datos en la tabla Hospital
+INSERT INTO Hospital(Hospital_Cod,Nombre,Direccion,Telefono, Num_Cama) VALUES(19,'Provincial','O Donell 50','5964-4256',502)
+INSERT INTO Hospital(Hospital_Cod,Nombre,Direccion,Telefono, Num_Cama) VALUES(18,'General','Atocha s/n','5595-3111',987)
+INSERT INTO Hospital(Hospital_Cod,Nombre,Direccion,Telefono, Num_Cama) VALUES(22,'La Paz','Castellana 1000','5923-5411',412)
+INSERT INTO Hospital(Hospital_Cod,Nombre,Direccion,Telefono, Num_Cama) VALUES(45,'San Carlos','Ciudad Universitaria','5597-1500',845)
+GO
+--Muestra los datos de insertados en la tabla Hospital
+SELECT * FROM Hospital
+GO
+CREATE TABLE Doctor
+(
+Doctor_No INT NOT NULL,
+Hospital_Cod INT NOT NULL,
+Apellido VARCHAR(50) NULL,
+Especialidad VARCHAR(50) NULL
+CONSTRAINT PK_Doctor PRIMARY KEY(Doctor_No),
+CONSTRAINT FK_Doctor_Hospital FOREIGN KEY (Hospital_Cod)
+REFERENCES Hospital(Hospital_Cod)
+)
+GO
+--Insertar datos en la tabla Doctor
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(22,386,'Cabeza D.','Psiquiatría')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(22,398,'Best D.','Urología')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(19,435,'López A.','Cardiología')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(22,453,'Galo D.','Pediatría')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(45,522,'Adams C.','Neurología')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(18,585,'Miller G.','Ginecología')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(45,607,'Chuki P.','Pediatría')
+INSERT INTO Doctor(Hospital_Cod,Doctor_No,Apellido,Especialidad) VALUES(18,982,'Cajal R.','Cardiología')
+GO
+--Muestra los datos de insertados en la tabla Doctor
+SELECT * FROM Doctor
+GO
+
+
+CREATE TABLE Sala
+(
+Sala_Cod INT NOT NULL,
+Hospital_Cod INT NOT NULL,
+Nombre VARCHAR(50) NULL,
+Num_Cama INT NULL
+CONSTRAINT PK_Sala PRIMARY KEY(Sala_Cod,Hospital_Cod),
+CONSTRAINT FK_Sala_Hospital FOREIGN KEY (Hospital_Cod)
+REFERENCES Hospital(Hospital_Cod)
+)
+GO
+--Insertar datos en la tabla Sala
+INSERT INTO SALA VALUES(1,22,'Recuperación',10)
+INSERT INTO SALA VALUES(1,45,'Recuperación',15)
+INSERT INTO SALA VALUES(2,22,'Maternidad',34)
+INSERT INTO SALA VALUES(2,45,'Maternidad',24)
+INSERT INTO SALA VALUES(3,19,'Cuidados Intensivos',21)
+INSERT INTO SALA VALUES(3,18,'Cuidados Intensivos',10)
+INSERT INTO SALA VALUES(4,18,'Cardiología',53)
+INSERT INTO SALA VALUES(4,45,'Cardiología',55)
+INSERT INTO SALA VALUES(6,19,'Psiquiátricos',67)
+INSERT INTO SALA VALUES(6,22,'Psiquiátricos',118)
+GO
+--Muestra los datos de insertados en la tabla Sala
+SELECT * FROM Sala
+GO
+CREATE TABLE Plantilla
+(
+Empleado_No INT NOT NULL,
+Sala_Cod INT NOT NULL,
+Hospital_Cod INT NOT NULL,
+Apellido VARCHAR(50) NULL,
+Funcion VARCHAR(50) NULL,
+T VARCHAR(15) NULL,
+Salario NUMERIC(9,2) NULL
+CONSTRAINT PK_Plantilla PRIMARY KEY(Empleado_No),
+CONSTRAINT FK_Plantilla_Sala01 FOREIGN KEY (Sala_Cod,Hospital_Cod)
+REFERENCES Sala(Sala_Cod,Hospital_Cod)
+)
+GO
+--Insertar datos en la tabla Plantilla
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(22,6,1009,'Higueras D.','Enfermera','T',200500)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(45,4,1280,'Amigo R.','Interino','N',221000)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(19,6,3106,'Hernández','Enfermero','T',275000)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(19,6,3754,'Díaz B.','Enfermera','T',226200)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(22,1,6065,'Rivera G.','Enfermera','N',162600)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(18,4,6357,'Karplus W.','Interino','T',337900)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(22,1,7379,'Carlos R.','Enfermera','T',211900)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(22,6,8422,'Bocina G.','Enfermero','M',183800)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(45,1,8526,'Frank H.','Enfermera','T',252200)
+INSERT INTO Plantilla(Hospital_Cod,Sala_Cod,Empleado_No,Apellido, Funcion, T,
+Salario)
+VALUES(22,2,9901,'Núñez C.','Interino','M',221000)
+GO
+--Muestra los datos de insertados en la tabla Plantilla
+SELECT * FROM Plantilla
+
+
+GO
+CREATE TABLE Enfermo
+(
+Inscripcion INT NOT NULL,
+Apellido VARCHAR(50) NULL,
+Direccion VARCHAR(50) NULL,
+Fecha_Nac VARCHAR(50) NULL,
+S VARCHAR(2) NULL,
+NSS INT NULL
+)
+GO
+--Insertar datos en la tabla Enfermo
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(10995,'Laguía M.','Goya 20','16-may-86','M',280862422),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(14024,'Fernández M.','Recoletos 50','21-may-80','F',284991452),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(18004,'Serrano V.','Alcalá 12','23-jun-97','F',321790059),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(36658,'Domin S.','Mayor 71','01-ene-82','M',160654471),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(38702,'Neal R.','Orense 11','18-jun-92','F',380010217),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(39217,'Cervantes M.','Perón 38','29-feb-97','M',440294390),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(59076,'Miller B.','López de Hoyos 2','16-sep-75','F',311969044),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(63827,'Ruiz P.','Ezquerdo 103','26-dic-90','M',100973253),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(64823,'Fraiser A.','Soto 3','10-jul-95','F',285201776),
+INSERT INTO Enfermo(Inscripcion,Apellido,Direccion,Fecha_Nac,S,NSS)
+VALUES(74835,'Benítez E.','Argentina','05-oct-98','M',154811767)
+GO
+--Muestra los datos de insertados en la tabla Plantilla
+SELECT * FROM Plantilla
+/*CONSULTAS*/
+--1. Mostrar todos los datos de los empleados de nuestra tabla emp.
+SELECT * FROM EMP
+--2. Mostrar el apellido, oficio, salario, salario anual, con las dos extras para
+aquellos empleados con comisión mayor de 100000.
+SELECT APELLIDO, OFICIO,
+SALARIO, SALARIO * 14 AS 'SALARIO ANUAL' FROM EMP
+WHERE COMISION > 100000
+--3. Idéntico del anterior, pero para aquellos empleados que su salario anual con
+extras supere los 2200000
+SELECT APELLIDO, OFICIO,
+SALARIO, SALARIO * 14 AS 'SALARIO ANUAL' FROM EMP
+WHERE SALARIO * 14 > 2200000
+--4. Idéntico del anterior, pero para aquellos empleados que sumen entre salario
+anual con extras y comisión los 3 millones.
+SELECT APELLIDO, OFICIO,
+SALARIO, SALARIO * 14 AS 'SALARIO ANUAL' FROM EMP
+WHERE SALARIO * 14 + comision > 3000000
+--5. Mostrar todos los datos de empleados ordenados por departamento y dentro de
+este por oficio para tener una visión jerárquica.
+SELECT * FROM EMP ORDER BY DEPT_NO, OFICIO
+--6. Mostrar todas las salas para el hospital 45.
+SELECT * FROM SALA WHERE HOSPITAL_COD = 45
+--7. Mostrar todos los enfermos nacidos antes de 1990.
+SELECT * FROM ENFERMO WHERE FECHA_NAC < '1990-01-01'
+
+
+--8. Igual que el anterior, para los nacidos antes de 1990 ordenados por número de
+inscripción descendente
+SELECT * FROM ENFERMO WHERE CAST(FECHA_NAC AS VARCHAR) < '1980/01/01'
+ORDER BY INSCRIPCION DESC
+--9. Listar todos los datos de la plantilla del hospital del turno de mañana
+SELECT * FROM PLANTILLA WHERE T ='M'
+--10. Idem del turno de noche.
+SELECT * FROM PLANTILLA WHERE T='N'
+--11. Visualizar los empleados de la plantilla del turno de mañana que tengan un
+salario entre 200000 y 225000.
+SELECT * FROM PLANTILLA WHERE SALARIO BETWEEN 200000 AND 225000 AND T = 'M'
+--12. Visualizar los empleados de la tabla emp que no se dieron de alta entre el
+01/01/2010 y el 31/12/2012.
+SET DATEFORMAT DMY
+SELECT * FROM EMP WHERE FECHA_ALT NOT BETWEEN '01/01/2010' AND '31/12/2012'
+--13. Mostrar los nombres de los departamentos situados en ROMA NORTE o en
+INSURGENTE.
+SELECT DNOMBRE FROM DEPT WHERE LOC IN ('ROMA NORTE','INSURGENTE')
+--14. Mostrar aquellos empleados con fecha de alta posterior al 1 de Julio de 2015.
+SELECT * FROM EMP
+WHERE FECHA_ALT > '01-07-2015'
+--15. Lo mismo que en el ejercicio 14 pero con salario entre 150000 y 400000.
+SELECT * FROM EMP
+WHERE FECHA_ALT > '01-07-2015'
+AND SALARIO BETWEEN 150000 AND 4000000
+--16. Igual que en el ejercicio 15, pero también incluimos aquellos que no siendo
+analista pertenecen al departamento 20.
+SELECT * FROM EMP
+WHERE FECHA_ALT > '01-07-2015'
+AND SALARIO BETWEEN 150000 AND 4000000
+OR (OFICIO <> 'ANALISTA' AND DEPT_NO = 20)
+--17. Mostrar aquellos empleados cuyo apellido termine en ‘Z’ ordenados por
+departamento, y dentro de este por antigüedad.
+SELECT * FROM EMP
+WHERE APELLIDO LIKE '%Z'
+ORDER BY DEPT_NO, FECHA_ALT ASC
+--18. De los empleados del ejercicio 17 quitar aquellos que superen los 200000
+mensuales.
+SELECT * FROM EMP
+WHERE APELLIDO LIKE '%Z'
+AND SALARIO <= 200000
+ORDER BY DEPT_NO, FECHA_ALT ASC
+--19. Mostrar todos los empleados cuyo oficio no sea analista.
+SELECT * FROM EMP
+WHERE OFICIO <> 'ANALISTA'
+
+
+
+--20. Igual que el ejercicio 19, pero mostrándolos de forma que se aprecien las
+diferencias de salario dentro de cada oficio.
+SELECT * FROM EMP
+WHERE OFICIO <> 'ANALISTA'
+ORDER BY OFICIO, SALARIO DESC
+--21. Del ejercicio 20, nos quedamos solo con aquellos cuyo número de empleado no
+este entre 7600 y 7900.
+SELECT * FROM EMP
+WHERE OFICIO <> 'ANALISTA'
+AND EMP_NO NOT BETWEEN 7600 AND 7900
+ORDER BY OFICIO, SALARIO DESC
+--22. Mostrar los distintos oficios de los empleados.
+SELECT DISTINCT OFICIO FROM EMP
+--23. Mostrar los distintos nombres de sala.
+SELECT DISTINCT NOMBRE FROM SALA
+--24. Mostrar que personal “No Interino” existe en cada sala de cada hospital,
+ordenado por hospital y sala.
+SELECT HOSPITAL_COD, SALA_COD, APELLIDO, FUNCION
+FROM PLANTILLA
+WHERE FUNCION NOT IN ('INTERINO')
+ORDER BY HOSPITAL_COD, SALA_COD
+--25. Justificar el resultado de la siguiente consulta SELECT APELLIDO DISTINCT
+DEPT_NO FROM EMP
+-Indicar que ocurre y modificarla para que todo vaya bien.
+SELECT DISTINCT APELLIDO,DEPT_NO FROM EMP
+--26. Seleccionar los distintos valores del sexo que tienen los enfermos.
+SELECT DISTINCT S AS "SEXO"
+FROM ENFERMO
+--27. Indicar los distintos turnos de la plantilla del hospital, ordenados por
+turno y por apellido.
+SELECT DISTINCT T AS "TURNO", APELLIDO
+FROM PLANTILLA
+ORDER BY TURNO, APELLIDO
+--28. Seleccionar las distintas especialidades que ejercen los médicos, ordenados
+por especialidad y apellido.
+SELECT DISTINCT ESPECIALIDAD, APELLIDO
+FROM DOCTOR
+ORDER BY ESPECIALIDAD, APELLIDO
+--29. Seleccionar todos los empleados cuyo apellido comience por M
+SELECT * FROM EMP WHERE APELLIDO LIKE 'M%'
+--30. Seleccionar todos los empleados que contengan en su apellido ER.
+SELECT * FROM EMP WHERE APELLIDO LIKE '%er%'
+--31. Mostrar todos los empleados cuyo nombre sea de 4 letras y su apellido termine
+con la letra a
+SELECT * FROM EMP WHERE APELLIDO LIKE '___a'
+
+
+
+--32. Mostrar todos los empleados cuyo apellido comience entre las letras E y F.
+SELECT * FROM EMP WHERE APELLIDO LIKE '[E-F]%'
+--33. Mostrar todos los empleados cuyo apellido comience por la letra A, contenga
+dentro de su apellido de la letra A a la M y que terminen en O.
+SELECT * FROM EMP WHERE APELLIDO LIKE 'A%[a-m]%o'
+--34. Mostrar todos los empleados cuyo apellido comience por la letra M y la
+segunda letra no sea una A.
+SELECT * FROM EMP WHERE APELLIDO LIKE 'M[^A]%'
+--35. Mostrar todos los empleados cuyo apellido sea de 5 letras y su tercera letra
+sea entra la A y la S terminando en Z.
+SELECT * FROM EMP WHERE APELLIDO LIKE '__[a-ñ]_z'
+--36. Mostrar todos los empleados cuyo apellido sea de 6 letras y no comience entre
+la A y la D.
+SELECT * FROM EMP WHERE APELLIDO LIKE '[^a-d]_____'
+--37. Mostrar todos los que empiecen por la A y cuya cuarta letra no esté
+comprendida entre A – G
+SELECT * FROM EMP WHERE APELLIDO LIKE 'A__[^a-g]%'
+--38. Muestra el total de empleados
+SELECT COUNT(*) FROM emp
+SELECT COUNT(oficio) FROM emp
+--39. AVG: Realiza la media sobre la expresión dada, debe ser un tipo de dato Int.
+SELECT AVG(salario) FROM emp
+--40. MAX: Saca el valor máximo de una consulta.
+SELECT MAX(fecha_alt) FROM emp
+--41. MIN: Devuelve el valor mínimo de una consulta.
+SELECT MIN(fecha_alt) FROM emp
+--42. SUM: Devuelve la suma de los salarios
+SELECT SUM(salario) FROM emp
+--43. Encontrar el salario medio de los analistas, mostrando el número de los
+empleados con oficio analista.
+SELECT COUNT(*) AS [NUMERO DE EMPLEADOS], OFICIO,
+AVG(SALARIO) AS [SALARIO MEDIO] FROM EMP
+GROUP BY OFICIO HAVING OFICIO ='ANALISTA'
+--44. Encontrar el salario mas alto, mas bajo y la diferencia entre ambos de todos
+los empleados con oficio EMPLEADO.
+SELECT OFICIO, MAX(SALARIO) AS [SALARIO MAS ALTO], MIN(SALARIO) AS [SALARIO MAS
+BAJO],
+MAX(SALARIO) - MIN(SALARIO) AS [DIFERENCIA ENTRE AMBOS]
+FROM EMP GROUP BY OFICIO HAVING OFICIO = 'EMPLEADO'
+--45. Visualizar los salarios mayores para cada oficio.
+SELECT OFICIO, MAX(SALARIO) AS [SALARIO MÁXIMO] FROM EMP GROUP BY OFICIO
+
+
+
+--46. Visualizar el número de personas que realizan cada oficio en cada
+departamento.
+SELECT DEPT_NO AS [Nº DE DEPARTAMENTO], COUNT(*) AS [Nº DE PERSONAS], OFICIO
+FROM EMP GROUP BY DEPT_NO, OFICIO
+ORDER BY 1
+--47. Buscar aquellos departamentos con cuatro o mas personas trabajando.
+SELECT DEPT_NO AS [Nº DE DEPARTAMENTO], COUNT(*) AS [Nº DE PERSONAS] FROM EMP
+GROUP BY DEPT_NO HAVING COUNT(*) > 3
+--48. Mostrar el número de directores que existen por departamento.
+SELECT COUNT(*) AS [NUMERO EMPLEADOS], DEPT_NO FROM EMP
+WHERE OFICIO = 'DIRECTOR'
+GROUP BY DEPT_NO
+--49. Visualizar el número de enfermeros, enfermeras e interinos que hay en la
+plantilla, ordenados por la función.
+SELECT COUNT(*) AS [Nº DE PERSONAS], FUNCION FROM PLANTILLA
+GROUP BY FUNCION
+HAVING FUNCION IN ('ENFERMERO','ENFERMERA','INTERINO')
+ORDER BY FUNCION
+--50. Visualizar departamentos, oficios y número de personas, para aquellos
+departamentos que tengan dos o más personas trabajando en el mismo oficio.
+SELECT DEPT_NO AS [Nº DE DEPARTAMENTO],COUNT(*) AS [Nº DE PERSONAS], OFICIO
+FROM EMP GROUP BY DEPT_NO,OFICIO HAVING COUNT(*) > 1
+--51. Calcular el salario medio, Diferencia, Máximo y Mínimo de cada oficio.
+Indicando el oficio y el número de empleados de cada oficio.
+SELECT OFICIO, COUNT(*) AS [Nº DE EMPLEADOS], MIN(SALARIO) AS [SALARIO MÍNIMO],
+MAX(SALARIO) AS [SALARIO MÁXIMO],
+MAX(SALARIO) - MIN(SALARIO) AS [DIFERENCIA], AVG(SALARIO) AS [MEDIA]
+FROM EMP GROUP BY OFICIO
+--52. Calcular el valor medio de las camas que existen para cada nombre de sala.
+Indicar el nombre de cada sala y el número de cada una de ellas.
+SELECT SALA_COD AS [SALA], NOMBRE, AVG(NUM_CAMA) AS [MEDIA DE CAMAS]
+FROM SALA GROUP BY NOMBRE, SALA_COD
+--53. Calcular el salario medio de la plantilla de la sala 6, según la función que
+realizan. Indicar la función y el número de empleados.
+SELECT COUNT(*) AS [Nº DE EMPLEADOS], FUNCION, AVG(SALARIO) AS [SALARIO MEDIO]
+FROM PLANTILLA GROUP BY FUNCION, SALA_COD HAVING SALA_COD = 6
+--54. Averiguar los últimos empleados que se dieron de alta en la empresa en cada
+uno de los oficios, ordenados por la fecha.
+SELECT MAX(FECHA_ALT) AS [FECHA], OFICIO FROM EMP
+GROUP BY OFICIO
+ORDER BY 1
+--55. Mostrar el número de hombres y el número de mujeres que hay entre los
+enfermos.
+SELECT COUNT(*) AS [NÚMERO], S AS [SEXO] FROM ENFERMO GROUP BY S
+--56. Mostrar la suma total del salario que cobran los empleados de la plantilla
+para cada función y turno.
+SELECT FUNCION, T AS [TURNO], SUM(SALARIO) AS [SUMA DE SALARIOS]
+FROM PLANTILLA GROUP BY FUNCION, T
